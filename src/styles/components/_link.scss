@@ -1,0 +1,69 @@
+.link {
+
+    font-weight        : map-get($Foundations_Fontweights, 'Medium');
+    text-decoration    : none;
+    cursor             : pointer;
+    color              : map-get($UI_Named_Colors, 'link-text');
+    border-bottom      : 2px solid transparent;
+    outline            : none;
+    transition-property: border-bottom;
+    transition-duration: 240ms;
+    transition-delay   : 80ms;
+    white-space        : nowrap;
+    word-break         : keep-all;
+
+    &:active,
+    &:focus,
+    &:hover {
+        border-bottom: 2px solid map-get($UI_Named_Colors, 'link-text');
+    }
+
+    svg {
+        margin-right: .5em;
+        width       : 1.2rem !important;
+        text-align  : center;
+    }
+
+    &.primary {
+        font-weight: map-get($Foundations_Fontweights, 'Semibold');
+    }
+
+    &.secondary {
+        font-weight: map-get($Foundations_Fontweights, 'Normal');
+    }
+
+    &.inactive {
+        color        : map-get($UI_Named_Colors, 'text-dim');
+        border-bottom: none;
+        cursor       : default;
+
+        &:active,
+        &:focus,
+        &:hover {
+            border-bottom: none;
+        }
+    }
+
+    &.transparent {
+        font-weight: inherit;
+        color      : inherit;
+    }
+
+    > a {
+        text-decoration: none;
+    }
+}
+
+/* When button tag is used for a link, strip button styles so it looks like any other links */
+button {
+    &.link {
+        padding     : 0;
+        border-top  : none;
+        border-left : none;
+        border-right: none;
+        outline     : none;
+        font-size   : inherit;
+        background  : none;
+
+    }
+}

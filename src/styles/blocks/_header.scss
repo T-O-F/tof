@@ -1,0 +1,59 @@
+header {
+  position                  : fixed;
+  z-index                   : 12;
+  top                       : 0;
+  transition-property       : padding, box-shadow, background-color;
+  transition-timing-function: ease-out, cubic-bezier(.82, .1, .14, 1.12);
+  transition-delay          : 20ms;
+  transition-duration       : 120ms;
+  background-color          : rgba(map-get($UI_Named_Colors, 'menu-bar-background'),0);
+
+  &.scrolled {
+    backdrop-filter: blur(12px);
+    box-shadow      : 0 16px 32px rgba(map-get($Foundations_Colors_Neutral, 'black'), 0.16);
+    background-color: rgba(map-get($UI_Named_Colors, 'menu-bar-background'),.9);
+  }
+
+  .container {
+    display       : flex;
+    flex-direction: row;
+
+    .logo {
+      transition-property: all;
+      transition-duration: 240ms;
+      transition-delay   : 80ms;
+      font-weight        : map-get($Foundations_Fontweights, 'Bold');
+      @include getFontResponsive('L');
+      color              : map-get($UI_Named_Colors, 'text');
+      color              : map-get($Foundations_Colors_Neutral, 'white');
+      border             : 2px solid map-get($UI_Named_Colors, 'text');
+      background         : map-get($UI_Named_Colors, 'text');
+      cursor             : pointer;
+      text-transform     : lowercase;
+      text-align         : center;
+      @include breakpointFromTo('xs','m') {
+        height     : 36px;
+        width      : 36px;
+        line-height: 36px;
+      }
+      @include breakpointUp('l') {
+        height     : 40px;
+        width      : 40px;
+        line-height: 40px;
+      }
+
+      &:active,
+      &:focus,
+      &:hover {
+        outline   : none;
+        background: transparent;
+        color     : map-get($UI_Named_Colors, 'link-text');
+        border    : 2px solid map-get($UI_Named_Colors, 'link-text');
+      }
+
+      span {
+        //display: none;
+      }
+    }
+  }
+}

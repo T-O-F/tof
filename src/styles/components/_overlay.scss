@@ -1,0 +1,85 @@
+header {
+  .overlay {
+    cursor    : pointer;
+    display   : none;
+    z-index   : 3;
+    position  : fixed;
+    top       : 0;
+    right     : 0;
+    bottom    : 0;
+    left      : 0;
+    width     : 100vw;
+    height    : 100vh;
+    background: map-get($UI_Named_Colors, 'overlay-background');
+
+    &.open {
+      display        : flex;
+      justify-content: flex-end;
+      @include breakpointUp('m') {
+        display: none;
+      }
+
+      .pane {
+        background   : white;
+        z-index      : 3;
+        padding-right: 40px;
+        padding-left : 40px;
+        opacity      : 1;
+        width        : 192px;
+        @include breakpointOnly('m') {
+          width        : 128px;
+          padding-left : 84px;
+          padding-right: 84px;
+        }
+
+        ul {
+          transition-property       : all;
+          transition-timing-function: ease-out, cubic-bezier(.82, .1, .14, 1.12);
+          transition-delay          : 80ms;
+          transition-duration       : 120ms;
+          margin-top                : 94px;
+        }
+
+        li {
+          text-align    : left;
+          padding-top   : 16px;
+          padding-bottom: 16px;
+          display       : flex !important;
+          box-sizing    : content-box;
+          border-bottom : thin solid map-get($UI_Named_Colors, 'border');
+
+          &:first-of-type {
+            border-top: thin solid map-get($UI_Named_Colors, 'border');
+            margin-top: 112px;
+          }
+
+          a {
+            border        : none;
+            flex-direction: row;
+            flex-grow     : 1;
+
+            span {
+              @include getFontResponsive('L');
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.scrolled {
+    .overlay {
+      &.open {
+        .pane {
+          ul {
+            margin-top: 76px;
+
+            li:first-of-type {
+              margin-top: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

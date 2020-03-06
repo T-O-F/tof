@@ -1,0 +1,10 @@
+.dev {
+  outline         : thin solid rgba(map-get($Foundations_Colors_Primary, 'blue'),.08) !important;
+  background-color: rgba(map-get($Foundations_Colors_Primary, 'blue'),.02) !important;
+  color           : rgba(map-get($Foundations_Colors_Primary, 'blue'),.8) !important;
+  backdrop-filter: none !important;
+}
+@mixin mark() {
+  outline   : thin solid red !important;
+  background: red !important;
+}

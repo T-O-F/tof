@@ -1,0 +1,40 @@
+body {
+    font-family: sans-serif;
+    color      : map-get($Foundations_Colors_Neutral, 'black-light');
+    background : map-get($UI_Named_Colors, 'background');
+
+    * {
+        //@extend .dev;
+    }
+}
+//Ensure that <footer/> is always at the bottom thanks to expansion of <main/>
+#gatsby-focus-wrapper {
+    display       : flex;
+    flex-direction: column;
+    min-height    : 100vh;
+
+    header {
+        flex-grow  : 0;
+        flex-shrink: 1;
+    }
+
+    main {
+        flex-grow  : 1;
+        flex-shrink: 0;
+    }
+
+    footer {
+        flex-grow  : 0;
+        flex-shrink: 1;
+    }
+}
+//Prevent img tags from expending beyond container limits and prevent figure
+//tags from having white space at the bottom
+
+figure {
+    line-height: 0;
+
+    img {
+        max-width: 100%;
+    }
+}

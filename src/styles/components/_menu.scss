@@ -1,0 +1,78 @@
+nav#main {
+  display        : flex;
+  z-index        : 3;
+  flex-direction : row;
+  flex-grow      : 1;
+  align-items    : center;
+  justify-content: flex-end;
+
+  ul {
+    li {
+      a {
+        text-decoration: none;
+        @include getFontResponsive('M');
+        outline        : none;
+        color          : map-get($UI_Named_Colors, 'link-text');
+      }
+    }
+  }
+
+  button {
+    box-sizing         : content-box;
+    transition-property: all;
+    transition-duration: 240ms;
+    transition-delay   : 80ms;
+    z-index            : 4;
+    padding            : 0 !important;
+    @include breakpointFromTo('xs','m') {
+      height     : 36px;
+      width      : 36px;
+      line-height: 36px;
+    }
+    @include breakpointUp('l') {
+      height     : 40px;
+      width      : 40px;
+      line-height: 40px;
+    }
+    display            : flex;
+    border             : none;
+    outline            : none;
+    background         : transparent;
+    cursor             : pointer;
+    @include getFontResponsive('L');
+    color              : map-get($UI_Named_Colors, 'text');
+    align-items        : center;
+    justify-content    : center;
+    text-align         : center;
+    border             : 2px solid rgba(map-get($Foundations_Colors_Neutral, 'white'),0);
+
+    svg {
+      vertical-align: middle;
+    }
+
+    &:active,
+    &:focus,
+    &:hover {
+      background: transparent;
+      color     : map-get($UI_Named_Colors, 'link-text');
+      border    : 2px solid map-get($UI_Named_Colors, 'link-text');
+    }
+
+    &.close {}
+  }
+  @include breakpointFromTo('xs', 's') {
+    li {
+      display: none;
+    }
+  }
+  @include breakpointUp('m') {
+    li {
+      display    : inline-flex;
+      margin-left: 24px;
+    }
+
+    button {
+      display: none;
+    }
+  }
+}
