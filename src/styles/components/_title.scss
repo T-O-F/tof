@@ -2,7 +2,7 @@
     font-weight: map-get($Foundations_Fontweights, 'Medium');
 
     &.level1 {
-        @include getFontResponsive('XL');
+        @include getFontResponsive('L');
         @include breakpointFromTo('xs','s') {
             margin-top   : 12px;
             margin-bottom: 12px;

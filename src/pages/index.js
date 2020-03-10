@@ -16,17 +16,23 @@ import {useStaticQuery, graphql} from "gatsby";
 import {documentToReactComponents} from "@contentful/rich-text-react-renderer";
 import {BLOCKS} from "@contentful/rich-text-types";
 import Conf from "../data/conf.yaml"
-
 import Emoji from "a11y-react-emoji";
 import SEO from "../components/seo";
 import Header from "../blocks/header";
 import Main from "../blocks/main";
 import Footer from "../blocks/footer";
-import {Container} from "../components/grid";
+import {View, Grid, Container, Card} from "../components/grid";
 import Title from "../components/title";
 import Section from "../components/section";
 import Link from "../components/link";
 import "../styles/index.scss";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {far} from "@fortawesome/pro-regular-svg-icons";
+import {fal} from "@fortawesome/pro-light-svg-icons";
+import {fas} from "@fortawesome/pro-solid-svg-icons";
+import {fab} from "@fortawesome/free-brands-svg-icons";
+library.add(far, fal, fas, fab);
 /*-----------------------------------------------------------------------------*
   /IMPORTS
 *-----------------------------------------------------------------------------*/
@@ -35,21 +41,6 @@ import "../styles/index.scss";
   FUNCTIONS
 *-----------------------------------------------------------------------------*/
 
-/* If 'window' object exists, add smooth scrolling to links in the main navigation menu 'nav#main' */
-if (typeof window !== "undefined") {
-  // Make scroll behavior of internal links smooth
-  // eslint-disable-next-line global-require
-  require("smooth-scroll")('nav#main a[href*="#"]', {
-    header: "[data-scroll-header]",
-    offset: 80,
-    speed: 500,
-    speedAsDuration: true,
-    easing: "easeInOutQuad",
-    updateURL: true,
-    popstate: true,
-    clip: true
-  });
-}
 /*-----------------------------------------------------------------------------*
   /FUNCTIONS
 *-----------------------------------------------------------------------------*/
@@ -106,10 +97,23 @@ const IndexPage = () => {
 
   const data = useStaticQuery(graphql `
     {
+      headerImage:  contentfulAsset(title: {eq: "Header"}) {
+      file {
+        url
+      }
+    }
     hero: contentfulBlock(slug: {eq: "tours-on-food"}) {
       title
       content {
         json
+      }
+    }
+    heroImage: contentfulImage(slug: {eq: "hero-image"}) {
+      id
+      asset {
+        file {
+          url
+        }
       }
     }
     tours: contentfulSection(slug: {eq: "tours"}) {
@@ -120,6 +124,11 @@ const IndexPage = () => {
           maximumParticipants
           minimumParticipants
           pricePerParticipant
+          photo {
+            file {
+              url
+            }
+          }
           title
           duration
           description {
@@ -141,8 +150,11 @@ const IndexPage = () => {
           content {
             json
           }
-          fontAwesomeIconName
           title
+          icon {
+            fontAwesomeName
+            fontAwesomeStyle
+          }
         }
       }
     }
@@ -159,19 +171,28 @@ const IndexPage = () => {
             }
           }
           passion {
-            fontAwesomeIcon
             text
+            icon {
+              fontAwesomeName
+              fontAwesomeStyle
+            }
           }
           languages {
-            fontAwesomeIcon
             text
+            icon {
+              fontAwesomeName
+              fontAwesomeStyle
+            }
           }
           description {
             description
           }
           location {
-            fontAwesomeIcon
             text
+            icon {
+              fontAwesomeName
+              fontAwesomeStyle
+            }
           }
         }
       }
@@ -182,138 +203,189 @@ const IndexPage = () => {
         ... on ContentfulBlock {
           id
           title
-          fontAwesomeIconName
+          icon {
+            fontAwesomeName
+            fontAwesomeStyle
+          }
           slug
           content {
             json
           }
+
         }
       }
     }
     contactMethods: contentfulSection(slug: {eq: "contact"}) {
-      blocks {
-        ... on ContentfulContactMethod {
-          id
-          name
-          method {
-            fontAwesomeIcon
-            text
+    blocks {
+      ... on ContentfulContactMethod {
+        id
+        name
+        slug
+        method {
+          text
+          icon {
+            fontAwesomeName
+            fontAwesomeStyle
           }
-          url
         }
+        url
       }
     }
+  }
   }
 
   `)
 
-  return (<> < SEO title = "Home" /> <Header/>
-  <Main>
+  return (<> < SEO title = "Home" /> <Main>
+    <View className='hero' style={{
+        backgroundImage: "url(" + data.heroImage.asset.file.url + ")"
+      }}>
+      <Grid>
+        <Container>
+          <Section className='header'>
+            <img src={data.headerImage.file.url} style={{minWidth:'300px'}}/>
+            {/*{data.hero.title}
+            {documentToReactComponents(data.hero.content.json, options)}*/}
+          </Section>
+        </Container>
+      </Grid>
+    </View>
+    <View>
+      <Grid>
+        <Container>
 
-    <Container>
+          <Section className='tours'>
+            <Title level='1'>{data.tours.title}</Title>
+            {
+              data.tours.blocks.forEach(block => {
 
-      HEADER
-      <Section>
-        {data.hero.title}
-        {documentToReactComponents(data.hero.content.json, options)}
-      </Section>
+                tours.push(<> < Card className = 'tour' > <div className='photo' style={{
+                    backgroundImage: "url(" + block.photo.file.url + ")"
+                  }}></div>
 
-      TOURS
-      <Section>
-        {data.tours.title}
-        {data.tours.blocks.forEach(block => {
-          const images = [];
-          tours.push(<>
-            <div>{block.title}</div>
-            <div>{block.description.description}</div>
-            <div>{block.duration}</div>
-            <div>{block.minimumParticipants}</div>
-            <div>{block.maximumParticipants}</div>
-            <div>{"€"+block.pricePerParticipant}</div>
-            {block.gallery.forEach(gallery => {
-              images.push(
-                <div>
-                {gallery.file.url}
+                <Title level='2'>{block.title}</Title>
+                <div className='description'>{block.description.description}</div>
+                <div className='characteristic'>
+                  <FontAwesomeIcon icon={['far', 'clock']}/> {block.duration}
                 </div>
-              )
-            })}
-            <div><button>Book this tour</button></div>
-            {images}
-          </>);
-        })}
-      {tours}
+                <div className='characteristic'><FontAwesomeIcon icon={['far', 'user-friends']}/> {block.minimumParticipants}
+                  to {block.maximumParticipants}
+                  people</div>
 
-        {documentToReactComponents(data.hero.content.json, options)}
-      </Section>
+                <div className='characteristic'><FontAwesomeIcon icon={['far', 'euro-sign']}/> {block.pricePerParticipant}/person</div>
+                  {
+                  block.gallery.forEach(gallery => {
+                    const images = []
+                    images.push(<div>
+                      {gallery.file.url}
+                    </div>)
+                  })
+                } < div > <button>Book this tour
+                  </button>
+              </div> < /Card>
+              </ >);
+              })
+            }
+            {tours}
+          </Section>
 
-      SERVICES
-      <Section>
-        {data.services.title}
+          <Section>
+            <Title level='1'>{data.services.title}</Title>
+            <Card className='services'>
+              <div className='content'>
+                {
+                  data.services.blocks.forEach(block => {
+                    services.push(<div className='service'>
+                      <div className='icon'>
+                        <FontAwesomeIcon icon={[block.icon.fontAwesomeStyle, block.icon.fontAwesomeName]}/>
+                      </div>
+                      <Title level='2'>{block.title}</Title>
+                      {documentToReactComponents(block.content.json, options)}
+                    </div>)
+                  })
+                }
+                {services}
+              </div>
+            </Card>
+          </Section>
+          <Section>
+            <Title level='1'>{data.guide.title}</Title>
+            <Card className='guide'>
+              <div className='content'>
 
-        {
-          data.services.blocks.forEach(block => {
-            services.push(<> < div > {
-              block.fontAwesomeIconName
-            }</div> < div > {
-              block.title
-            }</div> {
-              documentToReactComponents(block.content.json, options)
-            } < />
-          )})}
-        {services}
+                <div className='photo' style={{
+                    backgroundImage: "url(" + data.guide.blocks[0].photo.file.url + ")"
+                  }}></div>
+                <Title level='2'>{data.guide.blocks[0].name}</Title>
 
-      </Section>
+                <div className='characteristic'>
+                  <div className='icon'>
+                    <FontAwesomeIcon icon={[
+                        data.guide.blocks[0].location.icon.fontAwesomeStyle,
+                        data.guide.blocks[0].location.icon.fontAwesomeName
+                      ]}/></div>
 
-      GUIDE
-      <Section>
-        <div>{data.guide.title}</div>
-      </Section>
-      <Section>
-        <div>{data.guide.blocks[0].name}</div>
-      </Section>
-      <Section>
-        <div>{data.guide.blocks[0].photo.file.url}</div>
-      </Section>
-      <Section>
-        <div>{data.guide.blocks[0].location['fontAwesomeIcon']}</div>
-        <div>{data.guide.blocks[0].location['text']}</div>
-      </Section>
-      <Section>
-        <div>{data.guide.blocks[0].languages['fontAwesomeIcon']}</div>
-        <div>{data.guide.blocks[0].languages['text']}</div>
-      </Section>
-      <Section>
-        <div>{data.guide.blocks[0].passion['fontAwesomeIcon']}</div>
-        <div>{data.guide.blocks[0].passion['text']}</div>
-      </Section>
+                  <div>{data.guide.blocks[0].location['text']}</div>
+                </div>
+                <div className='characteristic'>
+                  <div className='icon'>
+                    <FontAwesomeIcon icon={[
+                        data.guide.blocks[0].languages.icon.fontAwesomeStyle,
+                        data.guide.blocks[0].languages.icon.fontAwesomeName
+                      ]}/>
+                  </div>
+                  <div>{data.guide.blocks[0].languages['text']}</div>
+                </div>
+                <div className='characteristic'>
+                  <div className='icon'>
+                    <FontAwesomeIcon icon={[
+                        data.guide.blocks[0].passion.icon.fontAwesomeStyle,
+                        data.guide.blocks[0].passion.icon.fontAwesomeName
+                      ]}/>
+                  </div>
+                  <div>{data.guide.blocks[0].passion['text']}</div>
+                </div>
+                <div className="description">{data.guide.blocks[0].description.description}</div>
+              </div>
+            </Card>
+          </Section>
+          <Section>
+            <Title level='1'>{data.contactTitle.title}</Title>
+            <Card className='contact'>
+              <div className='icon'>
+                <FontAwesomeIcon icon={[
+                    data.contactTitle.blocks[0].icon.fontAwesomeStyle,
+                    data.contactTitle.blocks[0].icon.fontAwesomeName
+                  ]}/>
+              </div>
+              <div className='content'>
+                <Title level='2'>{data.contactTitle.blocks[0].title}</Title>
+                <div>{documentToReactComponents(data.contactTitle.blocks[0].content.json, options)}</div>
+              </div>
+              {
+                data.contactMethods.blocks.filter(block => block.__typename == 'ContentfulContactMethod').forEach(block => {
+                  contactMethods.push(<button className={'contactMethod ' + block.slug}>
+                    <div>
+                      <span>
+                        <FontAwesomeIcon icon={[
+                            block.method[0].icon.fontAwesomeStyle,
+                            block.method[0].icon.fontAwesomeName
+                          ]}/>
+                      </span>
+                      <span>{block.method[0].text}</span>
+                    </div>
+                  </button>);
+                })
+              }
+              {contactMethods}
+            </Card>
+          </Section>
+        </Container>
+      </Grid>
+    </View>
 
-      CONTACT
-      <Section>
-        <div>{data.contactTitle.title}</div>
-        <div>{data.contactTitle.blocks[0].fontAwesomeIconName}</div>
-        <div>{data.contactTitle.blocks[0].title}</div>
-        <div>{documentToReactComponents(data.contactTitle.blocks[0].content.json, options)}</div>
-      </Section>
-      <Section>
-        {
-          data.contactMethods.blocks.filter(block => block.__typename == 'ContentfulContactMethod').forEach(block => {
-            contactMethods.push(<a href={block.url}><div> <span>{JSON.stringify(block.method[0].fontAwesomeIcon)}</span>
-            <span>{JSON.stringify(block.method[0].text)}</span>
-          </div></a>
-            );
-          })
-        }
-        {contactMethods}
-      </Section>
-
-    </Container>
   </Main>
 
-  <Footer>
-    <Container>
-      <Section></Section>
-    </Container>
-  </Footer>
 </>)
 };
 /*-----------------------------------------------------------------------------*

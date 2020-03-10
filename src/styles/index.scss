@@ -4,11 +4,41 @@
 //Components
 @import 'components/link';
 @import 'components/title';
-@import 'components/menu';
-@import 'components/overlay';
+@import 'components/card';
 
 //FOUC Prevention
 @import 'nofouc';
 
-main {
+.hero {
+    min-height         : 400px;
+    background-size    : cover;
+    background-position: center center;
+    margin-bottom      : 32px;
+}
+
+.header {
+    text-align   : center;
+    margin-bottom: 0;
+
+    img {
+        position: relative;
+        top     : 80px;
+
     }
+}
+
+section {
+    margin-bottom: 32px;
+
+    > .title {
+        text-transform: uppercase;
+        font-weight   : map-get($Foundations_Fontweights,"Bold");
+    }
+
+    &.tours {
+        .card:not(:last-of-type) {
+            margin-bottom: 24px;
+
+        }
+    }
+}

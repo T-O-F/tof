@@ -1,0 +1,221 @@
+.card {
+    * {
+        //outline: thin solid red;
+    }
+    box-shadow: 0 16px 32px rgba(map-get($Foundations_Colors_Neutral, 'black'), .16);
+    background: map-get($UI_Named_Colors, 'background');
+    padding   : 24px;
+
+    .icon {
+        text-align: center;
+        @include getFontResponsive('XXXXL');
+        color     : #00ADB1;
+
+    }
+
+    .title.level2 {
+
+        font-weight: map-get($Foundations_Fontweights, "Semibold");
+        font-size  : 900;
+
+    }
+
+    .content {
+        text-align   : center;
+        margin-bottom: 24px;
+    }
+
+    &.tour {
+        .photo {
+            height             : 200px;
+            margin-left        : -24px;
+            margin-top         : -24px;
+            margin-right       : -24px;
+            background-size    : cover;
+            background-repeat  : no-repeat;
+            background-position: center center;
+        }
+
+        .title.level2 {
+            margin-top: 24px;
+        }
+
+        .description {
+            padding-bottom: 12px;
+            margin-bottom : 12px;
+            border-bottom : thin solid map-get($UI_Named_Colors, 'border');
+
+        }
+
+        .characteristic {
+            display     : inline-block;
+            margin-right: 16px;
+
+        }
+
+        button {
+            &:active,
+            &:focus,
+            &:hover {
+                outline: none;
+            }
+
+            border          : none;
+            text-align      : center;
+            cursor          : pointer;
+            width           : 100%;
+            padding         : 8px;
+            box-shadow      : 0 4px 8px rgba(map-get($Foundations_Colors_Neutral, 'black'), .08);
+            margin-top      : 16px;
+            margin-bottom   : 16px;
+            display         : block;
+            font-weight     : map-get($Foundations_Fontweights, "Semibold");
+            text-transform  : uppercase;
+            color           : rgba(map-get($Foundations_Colors_Neutral, 'white'), 1);
+            @include getFontResponsive('M');
+            border-radius   : 4px;
+
+            span:nth-of-type(1) {
+                vertical-align: middle;
+
+                @include getFontResponsive('L');
+
+                display       : inline-block;
+                text-align    : center;
+                width         : 32px;
+                margin-right  : 8px;
+            }
+
+            span:nth-of-type(2) {
+                vertical-align: middle;
+
+            }
+            background-color: #E62E3A;
+
+        }
+    }
+
+    &.contact {
+        button {
+            &:active,
+            &:focus,
+            &:hover {
+                outline: none;
+            }
+            border        : none;
+            text-align    : left;
+            cursor        : pointer;
+            width         : 100%;
+            padding       : 8px;
+            box-shadow    : 0 4px 8px rgba(map-get($Foundations_Colors_Neutral, 'black'), .08);
+            margin-bottom : 16px;
+            display       : block;
+            font-weight   : map-get($Foundations_Fontweights, "Semibold");
+            text-transform: uppercase;
+            color         : rgba(map-get($Foundations_Colors_Neutral, 'white'), 1);
+            @include getFontResponsive('S');
+            border-radius : 4px;
+
+            span:nth-of-type(1) {
+                vertical-align: middle;
+
+                @include getFontResponsive('L');
+
+                display       : inline-block;
+                text-align    : center;
+                width         : 32px;
+                margin-right  : 8px;
+            }
+
+            span:nth-of-type(2) {
+                vertical-align: middle;
+
+            }
+
+            &.contactMethod {
+                &.phone {
+                    background-color: #00ADB1;
+                }
+
+                &.whatsapp {
+                    background-color: #25D366;
+                }
+
+                &.messenger {
+                    background-color: #0084FF;
+                }
+
+                &.instagram {
+                    background-color: #E1306C;
+                }
+
+                &.email {
+                    background-color: #555555;
+                }
+            }
+        }
+    }
+
+    &.services {
+        .service {
+            margin-bottom: 32px;
+
+            &:first-of-type {
+                margin-top: 32px;
+            }
+        }
+    }
+
+    &.guide {
+        text-align: center;
+
+        .photo {
+            margin-left        : auto;
+            margin-right       : auto;
+            width              : 120px;
+            height             : 120px;
+            border-radius      : 120px;
+            background-size    : contain;
+            background-repeat  : no-repeat;
+            background-position: center center;
+            box-shadow         : 0 4px 8px rgba(map-get($Foundations_Colors_Neutral, 'black'), .16);
+        }
+
+        .title.level2 {
+            margin-top    : 16px;
+            padding-bottom: 12px;
+            border-bottom : thin solid map-get($UI_Named_Colors, 'border');
+            margin-bottom : 12px;
+        }
+
+        .characteristic {
+
+            text-align: left;
+
+            .icon,
+            div:nth-of-type(2) {
+                display: inline-block;
+            }
+
+            div:nth-of-type(2) {
+                font-weight: map-get($Foundations_Fontweights, "Medium");
+            }
+
+            .icon {
+                @include getFontResponsive('L');
+                width     : 32px;
+                text-align: center;
+                color     : inherit;
+            }
+        }
+
+        .description {
+            text-align : left;
+            margin-top : 12px;
+            border-top : thin solid map-get($UI_Named_Colors, 'border');
+            padding-top: 12px;
+
+        }
+    }
+
+}

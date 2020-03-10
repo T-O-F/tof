@@ -20,20 +20,22 @@ import PropTypes from "prop-types";
 /*-----------------------------------------------------------------------------*
   COMPONENTS
 *-----------------------------------------------------------------------------*/
-const Container = ({ id, children }) => {
+const Container = ({ id, children, className, style }) => {
   return (
-    <div className={"container "} id={id}>
+    <div className={"container "+className} id={id} style={style}>
       {children}
     </div>
   );
 };
-const View = ({ children }) => {
-  return <div className="view">{children}</div>;
+const View = ({ children, className, style }) => {
+  return <div className={"view "+className} style={style}>{children}</div>;
 };
-const Grid = ({ children }) => {
-  return <div className="grid">{children}</div>;
+const Grid = ({ children, className, style }) => {
+  return <div className={"grid "+className} style={style}>{children}</div>;
 };
-
+const Card = ({ children, className, style }) => {
+  return <div className={"card "+className} style={style}>{children}</div>;
+};
 /*-----------------------------------------------------------------------------*
   /COMPONENTS
 *-----------------------------------------------------------------------------*/
@@ -56,7 +58,7 @@ Container.defaultProps = {
 /*-----------------------------------------------------------------------------*
   EXPORTS
 *-----------------------------------------------------------------------------*/
-export { Grid, View, Container };
+export { Grid, View, Container, Card };
 /*-----------------------------------------------------------------------------*
   /EXPORTS
 *-----------------------------------------------------------------------------*/
