@@ -4,7 +4,17 @@
     }
     box-shadow: 0 16px 32px rgba(map-get($Foundations_Colors_Neutral, 'black'), .16);
     background: map-get($UI_Named_Colors, 'background');
-    padding   : 24px;
+    @include breakpointFromTo('xs','s') {
+        padding: 24px;
+    }
+    @include breakpointOnly('m') {
+        padding: 32px;
+
+    }
+    @include breakpointUp('l') {
+        padding: 40px;
+
+    }
 
     .icon {
         text-align: center;
@@ -28,9 +38,25 @@
     &.tour {
         .photo {
             height             : 200px;
-            margin-left        : -24px;
-            margin-top         : -24px;
-            margin-right       : -24px;
+
+            @include breakpointFromTo('xs','s') {
+                margin-left : -24px;
+                margin-top  : -24px;
+                margin-right: -24px;
+            }
+            @include breakpointOnly('m') {
+                margin-left : -32px;
+                margin-top  : -32px;
+                margin-right: -32px;
+
+            }
+            @include breakpointUp('l') {
+                margin-left : -40px;
+                margin-top  : -40px;
+                margin-right: -40px;
+
+            }
+
             background-size    : cover;
             background-repeat  : no-repeat;
             background-position: center center;

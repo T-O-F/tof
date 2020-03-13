@@ -97,7 +97,17 @@ const IndexPage = () => {
 
   const data = useStaticQuery(graphql `
     {
-      headerImage:  contentfulAsset(title: {eq: "Header"}) {
+    headerEmblem:  contentfulAsset(title: {eq: "Emblem"}) {
+      file {
+        url
+      }
+    }
+    headerDiamond:  contentfulAsset(title: {eq: "Diamond"}) {
+      file {
+        url
+      }
+    }
+    headerIcons:  contentfulAsset(title: {eq: "Icons"}) {
       file {
         url
       }
@@ -243,9 +253,19 @@ const IndexPage = () => {
       <Grid>
         <Container>
           <Section className='header'>
-            <img src={data.headerImage.file.url} style={{minWidth:'300px'}}/>
-            {/*{data.hero.title}
-            {documentToReactComponents(data.hero.content.json, options)}*/}
+            <img className='emblem' src={data.headerEmblem.file.url}/>
+            <div className='main-box'>
+              <Title level='1'>{data.hero.title}</Title>
+              <img className='diamond' src={data.headerDiamond.file.url}/>
+              <Title level='2'>{documentToReactComponents(data.hero.content.json, options)}</Title>
+
+            </div>
+            <div className='band'
+              style={{
+                  backgroundImage: "url(" + data.headerIcons.file.url + ")"
+                }}>
+            </div>
+
           </Section>
         </Container>
       </Grid>
@@ -254,8 +274,9 @@ const IndexPage = () => {
       <Grid>
         <Container>
 
-          <Section className='tours'>
+          <Section id='tours'>
             <Title level='1'>{data.tours.title}</Title>
+
             {
               data.tours.blocks.forEach(block => {
 
@@ -268,9 +289,7 @@ const IndexPage = () => {
                 <div className='characteristic'>
                   <FontAwesomeIcon icon={['far', 'clock']}/> {block.duration}
                 </div>
-                <div className='characteristic'><FontAwesomeIcon icon={['far', 'user-friends']}/> {block.minimumParticipants}
-                  to {block.maximumParticipants}
-                  people</div>
+                <div className='characteristic'><FontAwesomeIcon icon={['far', 'user-friends']}/> {block.minimumParticipants} to  {block.maximumParticipants} people</div>
 
                 <div className='characteristic'><FontAwesomeIcon icon={['far', 'euro-sign']}/> {block.pricePerParticipant}/person</div>
                   {
@@ -286,10 +305,12 @@ const IndexPage = () => {
               </ >);
               })
             }
+            <div className='tours'>
             {tours}
+            </div>
           </Section>
 
-          <Section>
+          <Section id='services'>
             <Title level='1'>{data.services.title}</Title>
             <Card className='services'>
               <div className='content'>
@@ -308,7 +329,8 @@ const IndexPage = () => {
               </div>
             </Card>
           </Section>
-          <Section>
+          <Section id='guide-contact'>
+            <Section class='guide'>
             <Title level='1'>{data.guide.title}</Title>
             <Card className='guide'>
               <div className='content'>
@@ -348,8 +370,8 @@ const IndexPage = () => {
                 <div className="description">{data.guide.blocks[0].description.description}</div>
               </div>
             </Card>
-          </Section>
-          <Section>
+            </Section>
+            <Section class='contact'>
             <Title level='1'>{data.contactTitle.title}</Title>
             <Card className='contact'>
               <div className='icon'>
@@ -379,6 +401,7 @@ const IndexPage = () => {
               }
               {contactMethods}
             </Card>
+            </Section>
           </Section>
         </Container>
       </Grid>

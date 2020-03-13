@@ -9,36 +9,184 @@
 //FOUC Prevention
 @import 'nofouc';
 
-.hero {
-    min-height         : 400px;
-    background-size    : cover;
-    background-position: center center;
-    margin-bottom      : 32px;
-}
+body {
+    padding-bottom: 64px;
 
-.header {
-    text-align   : center;
-    margin-bottom: 0;
-
-    img {
-        position: relative;
-        top     : 80px;
-
+    * {
+        //outline: thin solid red;
     }
 }
 
-section {
-    margin-bottom: 32px;
+.hero {
 
+    min-height         : 400px;
+    background-size    : cover;
+    background-position: center center;
+
+}
+
+.header {
+    text-align: center;
+
+    margin-top: 80px;
+
+    .emblem {
+
+        z-index     : 1;
+        top         : 0;
+        left        : 0;
+        right       : 0;
+        position    : absolute;
+        margin-top  : 80px;
+        margin-left : auto;
+        margin-right: auto;
+        width       : 120;
+    }
+
+    .diamond {
+        position    : absolute;
+        margin-left : auto;
+        margin-right: auto;
+        left        : 0;
+        right       : 0;
+        z-index     : 5;
+        height      : 16px;
+        margin-top  : -2px;
+    }
+
+    .band {
+        height             : 48px;
+        background-color   : #E62E3A;
+        background-position: center center;
+        border             : 4px solid white;
+        width              : 100%;
+        position           : relative;
+        margin-top         : 40px;
+        z-index            : 5;
+        background-repeat  : repeat-x;
+
+    }
+
+    .main-box {
+        box-shadow  : 0 16px 60px rgba(map-get($Foundations_Colors_Neutral, 'black'), .6);
+
+        border      : 4px solid white;
+        background  : #21468B;
+        min-height  : 200px;
+        width       : 80%;
+        margin-left : auto;
+        text-align  : center;
+        margin-right: auto;
+        position    : relative;
+        top         : 66px;
+
+        .title {
+            color   : white;
+            z-index : 2;
+            position: relative;
+
+            &.level1 {
+                margin-top    : 58px;
+
+                text-transform: uppercase;
+                @include getFontResponsive('XXXL');
+                @include breakpointUp('l') {
+                    @include getFontResponsive('XXXXL');
+                }
+
+                font-weight   : map-get($Foundations_Fontweights,"Bold");
+            }
+
+            &.level2 {
+                border-top    : 2px solid white;
+                display       : inline-block;
+                margin-left   : 12px;
+                margin-right  : 12px;
+                padding-top   : 20px;
+                padding-bottom: 40px;
+                @include getFontResponsive('XL');
+                @include breakpointUp('l') {
+                    @include getFontResponsive('XXL');
+                }
+            }
+        }
+
+    }
+
+    img {}
+
+}
+
+section {
     > .title {
         text-transform: uppercase;
         font-weight   : map-get($Foundations_Fontweights,"Bold");
     }
 
-    &.tours {
+    @include breakpointFromTo('xs','s') {
+        > .title.level1 {
+            margin-top: 40px;
+        }
+    }
+
+    @include breakpointOnly('m') {
+        > .title.level1 {
+            margin-top: 52px;
+        }
+    }
+
+    @include breakpointUp('l') {
+        > .title.level1 {
+            margin-top: 64px;
+        }
+    }
+
+    &#tours {
         .card:not(:last-of-type) {
             margin-bottom: 24px;
 
         }
+    }
+}
+
+@include breakpointUp('m') {
+    #tours .tours {
+        display              : grid;
+        grid-template-columns: 1fr 1fr;
+
+        .tour {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    #services .services .content {
+        display              : grid;
+        grid-template-columns: 1fr 1fr;
+        padding-top          : 40px;
+
+        .service:first-of-type {
+            margin-top: 0 !important;
+        }
+    }
+
+    #guide-contact {
+        display              : grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@include breakpointOnly('m') {
+    #guide-contact,
+    #services .services .content,
+    #tours .tours {
+        grid-column-gap: 20px;
+    }
+}
+
+@include breakpointUp('l') {
+    #guide-contact,
+    #services .services .content,
+    #tours .tours {
+        grid-column-gap: 32px;
     }
 }
