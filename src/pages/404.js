@@ -33,7 +33,7 @@ const NotFoundPage = () => {
     <Header />
     <Main className='notfound'>
       <Container>
-      <h1>Page Not Found - 404</h1>
+      <h1>404 - Page Not Found</h1>
       <h2>The page or element you are looking for cannot be found.</h2>
       <h2>You can try going to the <button className='link' onClick={() => {
           window.history.go(-1)
