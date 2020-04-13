@@ -17,7 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "a11y-react-emoji": "^1.1.2",
     "gatsby": "^2.19.43",
-    "gatsby-image": "^2.2.43",
+    "gatsby-image": "^2.3.2",
     "gatsby-plugin-copy-files": "^1.0.3",
     "gatsby-plugin-manifest": "^2.2.47",
     "gatsby-plugin-offline": "^3.0.40",
