@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-pro": "^5.12.1",
-    "prettier": "^1.19.1"
+    "prettier": "^2.0.5"
   },
   "keywords": [
     "jules",
